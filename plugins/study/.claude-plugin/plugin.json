@@ -1,0 +1,10 @@
+{
+  "name": "study",
+  "description": "The study protocol: two colleagues working through a source or a literature by units, with instruments you choose.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Oskari Juurikkala"
+  },
+  "license": "CC-BY-4.0",
+  "repository": "https://github.com/oskarijuurikkala/ac-hub-starter"
+}

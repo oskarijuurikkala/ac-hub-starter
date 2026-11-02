@@ -1,0 +1,17 @@
+{
+  "name": "ac-hub-starter",
+  "owner": {
+    "name": "Oskari Juurikkala"
+  },
+  "metadata": {
+    "description": "Skills for scholarly work with Claude Code, shared from the AC HUB workspace.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "study",
+      "source": "./plugins/study",
+      "description": "The study protocol: work through a source or a literature by units, with instruments you choose; builds a store, a thinking note and maps."
+    }
+  ]
+}
