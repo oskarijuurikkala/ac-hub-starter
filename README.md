@@ -19,12 +19,17 @@ anything.
 
 ---
 
-## Setup (for Claude, on a Mac)
+## Setup (for Claude, on a Mac or on Windows)
 
 Do these in order, telling the user what each step is for and asking before each
 install. Skip anything already present.
 
-**1. Tools.** Check `brew --version`; if Homebrew is missing, give the user the
+**1. Tools.** Two programs: **Poppler** lets Claude look at a PDF page as an image
+(needed when a page's text is doubtful, and for Greek); **Node** runs the study
+plugin's checkers for its visual maps. Check first with `pdftoppm -v` and
+`node --version`.
+
+*On a Mac:* check `brew --version`; if Homebrew is missing, give the user the
 one-line installer from https://brew.sh to paste into Terminal themselves (it asks
 for their Mac password, which Claude must not handle). Then:
 
@@ -32,8 +37,16 @@ for their Mac password, which Claude must not handle). Then:
 brew install poppler node
 ```
 
-Poppler lets Claude look at a PDF page as an image (needed when a page's text is
-doubtful, and for Greek). Node runs the study plugin's checkers for its visual maps.
+*On Windows:* winget is built in. Then:
+
+```
+winget install --id oschwartz10612.Poppler
+winget install --id OpenJS.NodeJS.LTS
+```
+
+Both put themselves on the PATH, but only for programs started afterwards: the user
+must **close and reopen VS Code** before Claude Code can find them. Until then the
+Read tool's PDF pages fail with "pdftoppm not found".
 
 **2. The plugin.** In Claude Code:
 
@@ -72,7 +85,17 @@ on, how you cite, the languages you read.
 **4. A first study.** Ask the user for a source they want to work on (an article or a
 chapter, ideally a PDF with a text layer, or markdown) and say: "study this". The
 skill will ask what they want from it before doing anything. Its maps are HTML files
-in the study folder; open one in the browser with `open "<file>.html"`.
+in the study folder; open one in the browser with `open "<file>.html"` on a Mac, or
+`start "" "<file>.html"` on Windows.
+
+**5. On Windows only: protect the text encoding.** Study files are full of accented
+letters, Greek, em-dashes and typographic quotes, and PowerShell's `Set-Content` and
+`Out-File` silently corrupt them. Add this line to the `CLAUDE.md` in the user's
+workspace folder (create the file if there is none), so every later session sees it:
+
+```
+- Write and edit files with the Write and Edit tools (or Python with explicit UTF-8), never with PowerShell Set-Content or Out-File, which corrupt accented letters, Greek and typographic punctuation.
+```
 
 ---
 
